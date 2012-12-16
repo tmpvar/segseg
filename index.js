@@ -64,7 +64,7 @@ module.exports = function(x1, y1, x2, y2, x3, y3, x4, y4) {
 
   // Line segments intersect: compute intersection point.
   denom = a1 * b2 - a2 * b1;
-  console.log('denom', denom);
+
   if ( denom == 0 ) {
     return true;
   }
