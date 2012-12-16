@@ -1,0 +1,19 @@
+{
+  "name": "segseg",
+  "version": "0.0.0",
+  "description": "2d segment to segment intersection detection",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/tmpvar/segseg.git"
+  },
+  "keywords": [
+    "2dmath",
+    "intersection"
+  ],
+  "author": "Elijah Insua <tmpvar@gmail.com>",
+  "license": "MIT"
+}
