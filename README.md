@@ -2,6 +2,16 @@
 
 Intersection detection between two line segments in 2d space
 
+## Signature
+
+`segseg(x1, y1, x2, y2, x3, y3, x4, y4)`
+
+__returns__:
+
+* [x, y] - intersection
+* true - colinear
+* undefined -  no intersection
+
 ## Usage
 
 ```javascript
@@ -19,10 +29,6 @@ console.log(isect.join(',')) // outputs: 0,0
 
 ```
 
-### Colinearity
+## Credits
 
-`segseg` returns true
-
-### Parallel
-
-`segseg` returns null
+This code was ported from Mukesh Prasad's [example implementation](http://tog.acm.org/resources/GraphicsGems/gemsii/xlines.c) which was included in graphics gems 2.
