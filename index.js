@@ -11,6 +11,9 @@
  *        x1, y1,  x2, y2   Coordinates of endpoints of one segment.
  *        x3, y3,  x4, y4   Coordinates of endpoints of other segment.
  *
+ *   Also Accepts:
+ *    4 objects with the minimal object structure { x: .., y: ..}
+ *    4 arrays where [0] is x and [1] is y
  *
  *   The value returned by the function is one of:
  *
@@ -20,6 +23,38 @@
  */
 
 module.exports = function(x1, y1, x2, y2, x3, y3, x4, y4) {
+
+  if (arguments.length === 4) {
+    var p1 = x1;
+    var p2 = y1;
+    var p3 = x2;
+    var p4 = y2;
+
+    // assume array [x, y]
+    if (p1.length && p1.length === 2) {
+      x1 = p1[0];
+      y1 = p1[1];
+      x2 = p2[0];
+      y2 = p2[1];
+      x3 = p3[0];
+      y3 = p3[1];
+      x4 = p4[0];
+      y4 = p4[1];
+
+    // assume object with obj.x and obj.y
+    } else {
+      x1 = p1.x;
+      y1 = p1.y;
+      x2 = p2.x;
+      y2 = p2.y;
+      x3 = p3.x;
+      y3 = p3.y;
+      x4 = p4.x;
+      y4 = p4.y;
+    }
+  }
+
+
   var a1, a2, b1, b2, c1, c2; // Coefficients of line eqns.
   var r1, r2, r3, r4;         // 'Sign' values
   var denom, offset;          // Intermediate values
