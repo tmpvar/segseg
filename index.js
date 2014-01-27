@@ -22,7 +22,7 @@
  *        true      - colinear
  */
 
-module.exports = function(x1, y1, x2, y2, x3, y3, x4, y4) {
+function segseg(x1, y1, x2, y2, x3, y3, x4, y4) {
 
   if (arguments.length === 4) {
     var p1 = x1;
@@ -110,3 +110,11 @@ module.exports = function(x1, y1, x2, y2, x3, y3, x4, y4) {
     ( y < 0 ? y : y ) / denom,
   ];
 };
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = segseg;
+}
+
+if (typeof window !== 'undefined') {
+  window.segseg = window.segseg || segseg;
+}
