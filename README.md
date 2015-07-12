@@ -31,4 +31,4 @@ console.log(isect.join(',')) // outputs: 0,0
 
 ## Credits
 
-This code was ported from Mukesh Prasad's [example implementation](http://tog.acm.org/resources/GraphicsGems/gemsii/xlines.c) which was included in graphics gems 2.
+This code was ported from Mukesh Prasad's [example implementation](http://www.realtimerendering.com/resources/GraphicsGems/gemsii/xlines.c) which was included in graphics gems 2.
