@@ -1,5 +1,5 @@
 /*  Ported from Mukesh Prasad's public domain code:
- *    http://tog.acm.org/resources/GraphicsGems/gemsii/xlines.c
+ *    http://www.realtimerendering.com/resources/GraphicsGems/gemsii/xlines.c
  *
  *   This function computes whether two line segments,
  *   respectively joining the input points (x1,y1) -- (x2,y2)
