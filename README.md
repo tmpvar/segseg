@@ -7,6 +7,8 @@ Intersection detection between two line segments in 2d space.
 
 ```javascript
 import segseg from 'segseg'
+
+
 /*
                 (0, 5)
                    |
@@ -14,9 +16,10 @@ import segseg from 'segseg'
                    |
                 (0, -5)
 */
-const isect = [ NaN, NaN ]
 
-//                      seg1                      seg2
+const isect = [ NaN, NaN ] // the output vector where collision point is stored
+
+//                       seg 1                   seg 2
 //                ┌-------------------┐   ┌-----------------┐
 if (segseg(isect, [ -10, 0 ], [ 10, 0 ],  [ 0, 5 ], [ 0, -5 ])) {
     // there was a collision
