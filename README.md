@@ -37,3 +37,5 @@ This is a pure es module, and requires node v12+ to run. However if you're using
 ## Credits
 
 This code was ported from Mukesh Prasad's [example implementation](http://www.realtimerendering.com/resources/GraphicsGems/gemsii/xlines.c) which was included in graphics gems 2.
+
+Internally the code uses a point-segment check for some edge cases, from https://gist.github.com/mattdesl/47412d930dcd8cd765c871a65532ffac
