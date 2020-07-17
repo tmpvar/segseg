@@ -1,5 +1,7 @@
 # segseg
 
+[![Build Status](https://travis-ci.org/tmpvar/segseg.svg?branch=master)](https://travis-ci.org/tmpvar/segseg)
+
 Intersection detection between two line segments in 2d space.
 
 
