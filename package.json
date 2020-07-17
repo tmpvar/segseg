@@ -1,6 +1,6 @@
 {
   "name": "segseg",
-  "version": "0.2.2",
+  "version": "1.0.0",
   "description": "2d segment to segment intersection detection",
   "main": "index.js",
   "type": "module",
@@ -13,7 +13,9 @@
   },
   "keywords": [
     "2dmath",
-    "intersection"
+    "intersection",
+    "collision",
+    "2d"
   ],
   "engines" : {
     "node" : ">=12"
