@@ -4,30 +4,40 @@ Intersection detection between two line segments in 2d space
 
 ## Signature
 
-`segseg(x1, y1, x2, y2, x3, y3, x4, y4)`
+`segseg(out, pos1, pos2, pos3, pos4)`
 
 __returns__:
 
-* [x, y] - intersection
-* true - colinear
-* undefined -  no intersection
+`true` if there is an intersection, `false` otherwise
+
+if an intersection occurred, `out` gets the 2d point of intersection copied into it.
+
+This function assumes 2d points are represented as `[ x, y ]`, which is compatible with the fantastic `gl-matrix` library.
 
 ## Usage
 
 ```javascript
-var segseg = require('segseg');
+import segseg from 'segseg'
 /*
                 (0, 5)
                    |
-  (-10, 0) ----------------  (10, 0)
+  (-10, 0) --------+-------  (10, 0)
                    |
                 (0, -5)
 */
-var isect = segseg(-10, 0, 10, 0, 0, 5, 0, -5);
+const isect = [ NaN, NaN ]
 
-console.log(isect.join(',')) // outputs: 0,0
+var intersects = segseg(isect, [-10, 0], [10, 0], [0, 5], [0, -5]);
+
+console.log('intersects:', intersects, ' point:', isect.join(',')) // output:    intersect: true  point: 0,0
 
 ```
+
+
+## Node compatibility
+
+This is a pure es module, and requires node v12+ to run. However if you're using a popular bundler such as rollup, webpack, etc. This should be compatible with most frontend setups too.
+
 
 ## Credits
 

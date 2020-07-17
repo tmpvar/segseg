@@ -3,6 +3,7 @@
   "version": "0.2.2",
   "description": "2d segment to segment intersection detection",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "node test/index.js"
   },
