@@ -1,18 +1,7 @@
 # segseg
 
-Intersection detection between two line segments in 2d space
+Intersection detection between two line segments in 2d space.
 
-## Signature
-
-`segseg(out, pos1, pos2, pos3, pos4)`
-
-__returns__:
-
-`true` if there is an intersection, `false` otherwise
-
-if an intersection occurred, `out` gets the 2d point of intersection copied into it.
-
-This function assumes 2d points are represented as `[ x, y ]`, which is compatible with the fantastic `gl-matrix` library.
 
 ## Usage
 
@@ -27,9 +16,12 @@ import segseg from 'segseg'
 */
 const isect = [ NaN, NaN ]
 
-var intersects = segseg(isect, [-10, 0], [10, 0], [0, 5], [0, -5]);
-
-console.log('intersects:', intersects, ' point:', isect.join(',')) // output:    intersect: true  point: 0,0
+//                      seg1                      seg2
+//                ┌-------------------┐   ┌-----------------┐
+if (segseg(isect, [ -10, 0 ], [ 10, 0 ],  [ 0, 5 ], [ 0, -5 ])) {
+    // there was a collision
+    console.log('intersected!', isect.join(','))  // output: intersected! 0,0
+}
 
 ```
 
