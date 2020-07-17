@@ -21,10 +21,8 @@ const isect = [ NaN, NaN ] // the output vector where collision point is stored
 
 //                       seg 1                   seg 2
 //                ┌-------------------┐   ┌-----------------┐
-if (segseg(isect, [ -10, 0 ], [ 10, 0 ],  [ 0, 5 ], [ 0, -5 ])) {
-    // there was a collision
-    console.log('intersected!', isect.join(','))  // output: intersected! 0,0
-}
+if (segseg(isect, [ -10, 0 ], [ 10, 0 ],  [ 0, 5 ], [ 0, -5 ]))
+    console.log('intersected!', isect.join(','))  // output:   intersected! 0,0
 
 ```
 
