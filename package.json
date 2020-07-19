@@ -1,8 +1,9 @@
 {
   "name": "segseg",
-  "version": "0.2.2",
+  "version": "1.0.0",
   "description": "2d segment to segment intersection detection",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "node test/index.js"
   },
@@ -12,8 +13,13 @@
   },
   "keywords": [
     "2dmath",
-    "intersection"
+    "intersection",
+    "collision",
+    "2d"
   ],
+  "engines" : {
+    "node" : ">=12"
+  },
   "author": "Elijah Insua <tmpvar@gmail.com>",
   "license": "MIT"
 }

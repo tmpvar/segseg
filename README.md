@@ -1,34 +1,41 @@
 # segseg
 
-Intersection detection between two line segments in 2d space
+[![Build Status](https://travis-ci.org/tmpvar/segseg.svg?branch=master)](https://travis-ci.org/tmpvar/segseg)
 
-## Signature
+Intersection detection between two line segments in 2d space.
 
-`segseg(x1, y1, x2, y2, x3, y3, x4, y4)`
-
-__returns__:
-
-* [x, y] - intersection
-* true - colinear
-* undefined -  no intersection
 
 ## Usage
 
 ```javascript
-var segseg = require('segseg');
+import segseg from 'segseg'
+
+
 /*
                 (0, 5)
                    |
-  (-10, 0) ----------------  (10, 0)
+  (-10, 0) --------+-------  (10, 0)
                    |
                 (0, -5)
 */
-var isect = segseg(-10, 0, 10, 0, 0, 5, 0, -5);
 
-console.log(isect.join(',')) // outputs: 0,0
+const isect = [ NaN, NaN ] // the output vector where collision point is stored
+
+//                       seg 1                   seg 2
+//                ┌-------------------┐   ┌-----------------┐
+if (segseg(isect, [ -10, 0 ], [ 10, 0 ],  [ 0, 5 ], [ 0, -5 ]))
+    console.log('intersected!', isect.join(','))  // output:   intersected! 0,0
 
 ```
+
+
+## Node compatibility
+
+This is a pure es module, and requires node v12+ to run. However if you're using a popular bundler such as rollup, webpack, etc. This should be compatible with most frontend setups too.
+
 
 ## Credits
 
 This code was ported from Mukesh Prasad's [example implementation](http://www.realtimerendering.com/resources/GraphicsGems/gemsii/xlines.c) which was included in graphics gems 2.
+
+Internally the code uses a point-segment check for some edge cases, from https://gist.github.com/mattdesl/47412d930dcd8cd765c871a65532ffac

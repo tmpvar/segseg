@@ -1,5 +1,8 @@
-var t = require('assert');
-var segseg = require('../');
+import t      from 'assert';
+import segseg from '../index.js';
+
+
+const out = [ 0, 0] // the output vector
 
 /*
   Basic intersection
@@ -7,15 +10,16 @@ var segseg = require('../');
                 (0, 5)
                    o
                    |
-  (-10, 0) o--------+-------o  (10, 0)
+ (-10, 0) o--------+-------o  (10, 0)
                    |
                    o
                 (0, -5)
 
 */
-t.deepEqual(segseg(-10, 0, 10, 0, 0, 5, 0, -5), [0,0])
-t.deepEqual(segseg([-10, 0], [10, 0], [0, 5], [0, -5]), [0,0])
-t.deepEqual(segseg({ x: -10, y: 0 }, { x :10, y: 0 }, { x:0, y:5 }, { x: 0, y: -5 }), [0,0])
+
+t.equal(segseg(out, [ -10, 0 ], [ 10, 0 ], [ 0, 5 ], [ 0, -5 ]), true)
+t.deepEqual(out, [ 0, 0 ])
+
 
 /*
   Basic intersection
@@ -28,9 +32,10 @@ t.deepEqual(segseg({ x: -10, y: 0 }, { x :10, y: 0 }, { x:0, y:5 }, { x: 0, y: -
                 (5, 0)
 
 */
-t.deepEqual(segseg(5, 5, 5, 0, 5, 5, 10, 5), [5,5])
-t.deepEqual(segseg([5, 5], [5, 0], [5, 5], [10, 5]), [5,5])
-t.deepEqual(segseg({ x:5, y:5 }, { x:5, y:0 }, { x:5, y:5 }, { x: 10, y:5 }), [5,5])
+
+t.equal(segseg(out, [ 5, 5 ], [ 5, 0 ], [ 5, 5 ], [ 10, 5 ]), true)
+t.deepEqual(out, [ 5, 5 ])
+
 
 /*
   Colinear
@@ -38,9 +43,33 @@ t.deepEqual(segseg({ x:5, y:5 }, { x:5, y:0 }, { x:5, y:5 }, { x: 10, y:5 }), [5
   (-10, 0) o----o--------o-----o  (10, 0)
 
 */
-t.equal(segseg(-10, 0, 10, 0, -2, 0, 2, 0), true)
-t.equal(segseg([-10, 0], [10, 0], [-2, 0], [2, 0]), true)
-t.equal(segseg({ x: -10, y: 0 }, { x:10, y:0 }, { x:-2, y:0 }, { x:2, y:0 }), true)
+
+t.equal(segseg(out, [-10, 0], [10, 0], [-2, 0], [2, 0]), true)
+t.deepEqual(out, [ -2, 0 ])
+
+
+
+
+// colinear line segments that overlap should return point of intersection
+//           segment 2
+//      ┌--------------┐
+// o----o--------o-----o
+// └-------------┘
+//     segment 1
+
+t.equal(segseg(out, [-10, 0], [2, 0], [-2, 0], [2, 0]), true)
+t.deepEqual(out, [ 2, 0 ])
+
+
+// handle colinear line segments that don't overlap
+//          seg 2
+//         ┌-----┐
+// o----o  o-----o
+// └----┘
+//  seg 1
+
+t.equal(segseg(out, [-10, 0], [-2, 0], [2, 0], [10, 0]), false)
+
 
 /*
   No intersection (parallel)
@@ -50,9 +79,11 @@ t.equal(segseg({ x: -10, y: 0 }, { x:10, y:0 }, { x:-2, y:0 }, { x:2, y:0 }), tr
   (-10, 0) o-------------o (10, 0)
 
 */
-t.equal(segseg(-10, 0, 10, 0, -10, 5, 10, 5), undefined)
-t.equal(segseg([-10, 0], [10, 0], [-10, 5], [10, 5]), undefined)
-t.equal(segseg({ x:-10, y:0 }, { x:10, y:0 }, { x:-10, y:5 }, { x:10, y:5 }), undefined)
+out[0] = 7
+out[1] = 9
+t.equal(segseg(out, [-10, 0], [10, 0], [-10, 5], [10, 5]), false)
+t.deepEqual(out, [ 7, 9 ], 'when no intersection out parameter is not updated')
+
 
 /*
   No intersection
@@ -63,9 +94,8 @@ t.equal(segseg({ x:-10, y:0 }, { x:10, y:0 }, { x:-10, y:5 }, { x:10, y:5 }), un
               (0, 0)
 
 */
-t.equal(segseg(-10, 0, 0, 0, -2, 5, 2, 0), undefined)
-t.equal(segseg([-10, 0], [0, 0], [-2, 5], [2, 0]), undefined)
-t.equal(segseg({ x:-10, y:0 }, { x:0, y:0 }, { x:-2, y:5 }, { x:2, y:0 }), undefined)
+t.equal(segseg(out, [-10, 0], [0, 0], [-2, 5], [2, 0]), false)
+
 
 /*
   No intersection
@@ -77,9 +107,8 @@ t.equal(segseg({ x:-10, y:0 }, { x:0, y:0 }, { x:-2, y:5 }, { x:2, y:0 }), undef
               (0, 0)
 
 */
-t.equal(segseg(-10, 0, 0, 0, -2, 5, -2, 1), undefined)
-t.equal(segseg([-10, 0], [0, 0], [-2, 5], [-2, 1]), undefined)
-t.equal(segseg({ x:-10, y:0 }, { x:0, y:0 }, { x:-2, y:5 }, { x:-2, y: 1 }), undefined)
+t.equal(segseg(out, [-10, 0], [0, 0], [-2, 5], [-2, 1]), false)
+
 
 /*
   No intersection
@@ -92,6 +121,11 @@ t.equal(segseg({ x:-10, y:0 }, { x:0, y:0 }, { x:-2, y:5 }, { x:-2, y: 1 }), und
     (-25, -5)
 
 */
-t.equal(segseg(-10, 0, 0, 0, -5, 5, -25, -5), undefined)
-t.equal(segseg([-10, 0], [0, 0], [-5, 5], [-25, -5]), undefined)
-t.equal(segseg({ x:-10, y:0 }, { x: 0, y:0 }, { x:-5, y:5 }, { x:-25, y:-5 }), undefined)
+t.equal(segseg(out, [-10, 0], [0, 0], [-5, 5], [-25, -5]), false)
+
+
+
+// see  https://github.com/tmpvar/segseg/issues/1
+t.equal(segseg(out, [ -23, -46 ], [ -23, 22 ], [ 50, -50 ], [ -50, 50 ]), true)
+t.deepEqual(out, [ -23, 22 ])
+
