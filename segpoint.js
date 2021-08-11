@@ -29,5 +29,5 @@ function distToSegmentSquared (p, v, w) {
 // t1 - end point of segment
 // return boolean indicating if p is on the segment
 export default function distToSegment (p, t0, t1) {
-  return Math.sqrt(distToSegmentSquared(p, t0, t1)) < 1
+  return !(Math.sqrt(distToSegmentSquared(p, t0, t1)) > 0)
 }
