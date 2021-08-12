@@ -129,3 +129,7 @@ t.equal(segseg(out, [-10, 0], [0, 0], [-5, 5], [-25, -5]), false)
 t.equal(segseg(out, [ -23, -46 ], [ -23, 22 ], [ 50, -50 ], [ -50, 50 ]), true)
 t.deepEqual(out, [ -23, 22 ])
 
+
+
+// See  https://github.com/tmpvar/segseg/issues/7
+t.equal(segseg(out, [1, 1], [5, 3], [3, 3], [5, 6]), false)
