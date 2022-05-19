@@ -27,7 +27,8 @@ function distToSegmentSquared (p, v, w) {
 // p - point
 // t0 - start point of segment
 // t1 - end point of segment
+// epsilon - maximum distance from the segment that a point can still be considered on the segment
 // return boolean indicating if p is on the segment
-export default function distToSegment (p, t0, t1) {
-  return Math.sqrt(distToSegmentSquared(p, t0, t1)) < 1
+export default function distToSegment (p, t0, t1, epsilon) {
+  return !(Math.sqrt(distToSegmentSquared(p, t0, t1)) > epsilon)
 }

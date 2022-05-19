@@ -1,4 +1,5 @@
 # 1.0.0
+* accidentally changed default behavior to allow segments <= 1 distance to be considered intersecting
 * refactor the API to provide a garbage collector friendly invocation and better performance (#2)
 * switch to pure es module (#3)
 * bump node dependency to v12+

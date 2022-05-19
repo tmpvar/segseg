@@ -2,16 +2,16 @@ import t      from 'assert';
 import segseg from '../index.js';
 
 
-const out = [ 0, 0] // the output vector
+const out = [ 0, 0 ] // the output vector
 
 /*
   Basic intersection
 
                 (0, 5)
                    o
-                   |
- (-10, 0) o--------+-------o  (10, 0)
-                   |
+                   │
+ (-10, 0) o────────+───────o  (10, 0)
+                   │
                    o
                 (0, -5)
 
@@ -25,9 +25,9 @@ t.deepEqual(out, [ 0, 0 ])
   Basic intersection
 
                 (5, 5)
-                   o------o (10, 5)
-                   |
-                   |
+                   o──────o (10, 5)
+                   │
+                   │
                    o
                 (5, 0)
 
@@ -40,7 +40,7 @@ t.deepEqual(out, [ 5, 5 ])
 /*
   Colinear
              (-2, 0)    (2, 0)
-  (-10, 0) o----o--------o-----o  (10, 0)
+  (-10, 0) o────o────────o─────o  (10, 0)
 
 */
 
@@ -52,9 +52,9 @@ t.deepEqual(out, [ -2, 0 ])
 
 // colinear line segments that overlap should return point of intersection
 //           segment 2
-//      ┌--------------┐
-// o----o--------o-----o
-// └-------------┘
+//      ┌──────────────┐
+// o────o────────o─────o
+// └─────────────┘
 //     segment 1
 
 t.equal(segseg(out, [-10, 0], [2, 0], [-2, 0], [2, 0]), true)
@@ -63,9 +63,9 @@ t.deepEqual(out, [ 2, 0 ])
 
 // handle colinear line segments that don't overlap
 //          seg 2
-//         ┌-----┐
-// o----o  o-----o
-// └----┘
+//         ┌─────┐
+// o────o  o─────o
+// └────┘
 //  seg 1
 
 t.equal(segseg(out, [-10, 0], [-2, 0], [2, 0], [10, 0]), false)
@@ -74,9 +74,9 @@ t.equal(segseg(out, [-10, 0], [-2, 0], [2, 0], [10, 0]), false)
 /*
   No intersection (parallel)
 
-  (-10, 5) o-------------o (10, 5)
+  (-10, 5) o─────────────o (10, 5)
 
-  (-10, 0) o-------------o (10, 0)
+  (-10, 0) o─────────────o (10, 0)
 
 */
 out[0] = 7
@@ -90,7 +90,7 @@ t.deepEqual(out, [ 7, 9 ], 'when no intersection out parameter is not updated')
 
       (-2, 5)  o
                  \
-  (-10, 0) o----o  o (2, 0)
+  (-10, 0) o────o  o (2, 0)
               (0, 0)
 
 */
@@ -103,7 +103,7 @@ t.equal(segseg(out, [-10, 0], [0, 0], [-2, 5], [2, 0]), false)
       (-2, 5)  o
                |
                o (-2, 1)
-  (-10, 0) o----o
+  (-10, 0) o────o
               (0, 0)
 
 */
@@ -116,7 +116,7 @@ t.equal(segseg(out, [-10, 0], [0, 0], [-2, 5], [-2, 1]), false)
     (-5, 5) o
            /
           / (-10, 0)
-         /o-----------o
+         /o───────────o
         o            (0, 0)
     (-25, -5)
 
@@ -126,6 +126,17 @@ t.equal(segseg(out, [-10, 0], [0, 0], [-5, 5], [-25, -5]), false)
 
 
 // see  https://github.com/tmpvar/segseg/issues/1
-t.equal(segseg(out, [ -23, -46 ], [ -23, 22 ], [ 50, -50 ], [ -50, 50 ]), true)
+let EPSILON = 1
+t.equal(segseg(out, [ -23, -46 ], [ -23, 22 ], [ 50, -50 ], [ -50, 50 ], EPSILON), true)
 t.deepEqual(out, [ -23, 22 ])
 
+
+
+// 2 segments who's closest points are 1 unit apart means they don't intersect
+t.deepEqual(segseg(out, [ 1, 1 ], [ 5, 3 ],  [ 3, 3 ], [ 5, 6 ]), false)
+
+// adjusting the EPSILON (maximum distance allowed to be considered overlappying) to 1 means these are considered intersecting
+t.deepEqual(segseg(out, [ 1, 1 ], [ 5, 3 ],  [ 3, 3 ], [ 5, 6 ], EPSILON), true)
+
+
+t.equal(segseg(out, [ 1, 1 ], [ 5, 3 ], [ 3, 3 ], [ 5, 6 ]), false)
