@@ -1,6 +1,6 @@
 # segseg
 
-[![Build Status](https://travis-ci.org/tmpvar/segseg.svg?branch=master)](https://travis-ci.org/tmpvar/segseg)
+[![Node.js CI](https://github.com/tmpvar/segseg/actions/workflows/node.js.yml/badge.svg)](https://github.com/tmpvar/segseg/actions/workflows/node.js.yml)
 
 Intersection detection between two line segments in 2d space.
 
